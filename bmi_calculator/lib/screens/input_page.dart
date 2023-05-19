@@ -1,9 +1,12 @@
+import 'package:bmi_calculator/screens/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'reusable_card.dart';
-import 'icon_content.dart';
-import 'constants.dart';
+import '../components/reusable_card.dart';
+import '../components/icon_content.dart';
+import '../constants.dart';
+import '../components/bottom_button.dart';
+import 'results_page.dart';
 
 enum Gender { male, female }
 
@@ -16,7 +19,7 @@ class _InputPageState extends State<InputPage> {
   Gender selectedGender = Gender.male;
   int height = 180;
   int weight = 60;
-  int age = 30;
+  int age = 25;
 
   @override
   Widget build(BuildContext context) {
@@ -135,19 +138,20 @@ class _InputPageState extends State<InputPage> {
                             RoundIconButton(
                               icon: FontAwesomeIcons.minus,
                               onPressed: () {
-                                setState() {
+                                setState(() {
                                   weight--;
-                                }
+                                });
                               },
                             ),
                             SizedBox(width: 10.0),
                             RoundIconButton(
-                                icon: FontAwesomeIcons.plus,
-                                onPressed: () {
-                                  setState() {
-                                    weight++;
-                                  }
-                                }),
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ],
@@ -156,16 +160,58 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: ReusableCard(customColor: kActiveCardColor),
+                  child: ReusableCard(
+                    customColor: kActiveCardColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            ),
+                            SizedBox(width: 10.0),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: kBottomContainerHeight,
-            color: kBottomContainerColor,
-          ),
+          BottomButton(
+              text: 'CALCULATE',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultsPage(),
+                  ),
+                );
+              }),
         ],
       ),
     );

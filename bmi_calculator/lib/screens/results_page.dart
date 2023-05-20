@@ -4,13 +4,18 @@ import 'package:bmi_calculator/components/reusable_card.dart';
 import 'package:flutter/material.dart';
 
 class ResultsPage extends StatelessWidget {
-  const ResultsPage({Key? key}) : super(key: key);
+  final String bmi;
+  final String result;
+  final String interpretation;
+
+  ResultsPage(
+      {required this.bmi, required this.result, required this.interpretation});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI CALCULATOR'),
+        title: const Text('BMI CALCULATOR'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -18,9 +23,9 @@ class ResultsPage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(15.0),
               alignment: Alignment.bottomLeft,
-              child: Text(
+              child: const Text(
                 'Your Result',
                 style: kTitleTextStyle,
               ),
@@ -30,18 +35,22 @@ class ResultsPage extends StatelessWidget {
             flex: 5,
             child: ReusableCard(
               customColor: kActiveCardColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Result', style: kResultTextStyle),
-                  Text('18.9', style: kBMITextStyle),
-                  Text(
-                    'Your BMI result is quite low. You should eat more.',
-                    textAlign: TextAlign.center,
-                    style: kBodyTextStyle,
-                  )
-                ],
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(result.toUpperCase(), style: kResultTextStyle),
+                    Text(bmi, style: kBMITextStyle),
+                    Text(
+                      interpretation,
+                      textAlign: TextAlign.center,
+                      style: kBodyTextStyle,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
